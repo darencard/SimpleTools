@@ -78,7 +78,7 @@ def double_digest(sequence, id, r_renz, r_cut_pos, c_renz, c_cut_pos, low, up, o
 				if common_testseq == common_motif:
 					common_digest = common_pos + common_cut_motif
 					if common_digest < len(DNA):
-						rare_j_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\n"
+						rare_j_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+\t+"+\n"
 						output.write(rare_j_line)
 						print rare_j_line
 			# whenever there is a rare enzyme cut, scan a window of basepairs downstream (based on lower/upper limits designed) for a common enzyme cut
@@ -111,7 +111,7 @@ def double_digest(sequence, id, r_renz, r_cut_pos, c_renz, c_cut_pos, low, up, o
 				if common_testseq == common_compmotif:
 					common_digest = common_pos + common_cut_compmotif
 					if common_digest > 0:
-						rare_k_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\n"
+						rare_k_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+\t+"-\n"
 						output.write(rare_k_line)
 						print rare_k_line
 
