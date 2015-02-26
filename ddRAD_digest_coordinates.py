@@ -111,7 +111,7 @@ def double_digest(sequence, id, r_renz, r_cut_pos, c_renz, c_cut_pos, low, up, o
 				if common_testseq == common_compmotif:
 					common_digest = common_pos + common_cut_compmotif
 					if common_digest > 0:
-						rare_k_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\t-\n"
+						rare_k_line = id+"\t"+str(common_digest)+"\t"+str(rare_digest)+"\t-\n"
 						output.write(rare_k_line)
 						print rare_k_line
 
