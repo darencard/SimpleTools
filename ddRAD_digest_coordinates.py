@@ -77,39 +77,43 @@ def double_digest(sequence, id, r_renz, r_cut_pos, c_renz, c_cut_pos, low, up, o
 				# if common enzyme test sequence equals the common restriction enzyme motif, report position
 				if common_testseq == common_motif:
 					common_digest = common_pos + common_cut_motif
-					rare_j_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\n"
-					output.write(rare_j_line)
-					print rare_j_line
+					if common_digest < len(DNA):
+						rare_j_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\t+\n"
+						output.write(rare_j_line)
+						print rare_j_line
 			# whenever there is a rare enzyme cut, scan a window of basepairs downstream (based on lower/upper limits designed) for a common enzyme cut
-			for k in range(rare_digest-int(up), (rare_digest-int(low))-len(rare_motif),1):
-				common_testseq = str(DNA[k:k+len(common_motif)])
-				common_pos = k+1
-				if common_testseq == common_motif:
-					common_digest = common_pos + common_cut_motif
-					rare_k_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\n"
-					output.write(rare_k_line)
-					print rare_k_line
+#			for k in range(rare_digest-int(up), (rare_digest-int(low))-len(rare_motif),1):
+#				common_testseq = str(DNA[k:k+len(common_motif)])
+#				common_pos = k+1
+#				if common_testseq == common_motif:
+#					common_digest = common_pos + common_cut_motif
+#					if common_digest > 0:
+#						rare_k_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\n"
+#						output.write(rare_k_line)
+#						print rare_k_line
 		elif rare_testseq == rare_compmotif:
 		# must do the same as above but with complement sequences (for opposite strand)
 			rare_digest = rare_pos + rare_cut_compmotif
 			# whenever there is a rare enzyme cut, scan a window of basepairs upstream (based on lower/upper limits designed) for a common enzyme cut. This actually ends up being downstream on the strand we care about.
-			for j in range(rare_digest+int(low), (rare_digest+int(up))-len(rare_motif),1):
-				common_testseq = str(DNA[j:j+len(common_compmotif)])
-				common_pos = j+1
-				if common_testseq == common_compmotif:
-					common_digest = common_pos + common_cut_compmotif
-					rare_j_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\n"
-					output.write(rare_j_line)
-					print rare_j_line
+#			for j in range(rare_digest+int(low), (rare_digest+int(up))-len(rare_motif),1):
+#				common_testseq = str(DNA[j:j+len(common_compmotif)])
+#				common_pos = j+1
+#				if common_testseq == common_compmotif:
+#					common_digest = common_pos + common_cut_compmotif
+#					if common_digest < len(DNA):
+#						rare_j_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\n"
+#						output.write(rare_j_line)
+#						print rare_j_line
 			# whenever there is a rare enzyme cut, scan a window of basepairs downstream (based on lower/upper limits designed) for a common enzyme cut. This actually ends up being upstream on the strand we care about.
-			for k in range(rare_digest-int(up), (rare_digest-int(low))-len(rare_motif),1):
+			for k in range(rare_digest-int(up), (rare_digest-int(low))-len(rare_compmotif),1):
 				common_testseq = str(DNA[k:k+len(common_compmotif)])
 				common_pos = k+1
 				if common_testseq == common_compmotif:
 					common_digest = common_pos + common_cut_compmotif
-					rare_k_line = id+"\t"+str(rare_digest)+"\t"+str(common_digest)+"\n"
-					output.write(rare_k_line)
-					print rare_k_line
+					if common_digest > 0:
+						rare_k_line = id+"\t"+str(common_digest)+"\t"+str(rare_digest)+"\t-\n"
+						output.write(rare_k_line)
+						print rare_k_line
 
 output = open(options.output, "w") # open output file
 
